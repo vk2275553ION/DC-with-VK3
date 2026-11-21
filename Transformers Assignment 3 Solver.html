@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DC Machines & Transformers - Assignment Solver</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Phosphor Icons CDN -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <!-- html2canvas for High Resolution Image Download -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            emerald: {
+              50: '#ecfdf5',
+              100: '#d1fae5',
+              200: '#a7f3d0',
+              300: '#6ee7b7',
+              400: '#34d399',
+              500: '#10b981',
+              600: '#059669',
+              700: '#047857',
+              800: '#065f46',
+              900: '#064e3b',
+              950: '#022c22'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=JetBrains+Mono:wght@500;700;800&display=swap');
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    .font-mono-code {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .custom-scroll::-webkit-scrollbar {
+      height: 6px;
+      width: 6px;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: #059669;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body class="bg-emerald-50 text-slate-900 min-h-screen flex flex-col justify-between selection:bg-emerald-200 selection:text-emerald-950">
+
+  <!-- Header Banner -->
+  <header class="bg-white border-b-4 border-emerald-600 shadow-md sticky top-0 z-40">
+    <div class="max-w-5xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <div class="bg-emerald-700 text-white p-2.5 rounded-xl shadow-lg flex items-center justify-center">
+          <i class="ph ph-lightning text-2xl font-bold"></i>
+        </div>
+        <div>
+          <h1 class="text-lg md:text-2xl font-black text-emerald-950 tracking-tight leading-tight">
+            DC Machines &amp; Transformers <span class="text-xs font-black px-2.5 py-1 bg-emerald-100 text-emerald-900 rounded-md border-2 border-emerald-400">Section 'B'</span>
+          </h1>
+          <p class="text-xs md:text-sm text-emerald-800 font-bold">Course Code: 23EE302 • Assignment #3 Step-by-Step Solver</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-2">
+        <div class="text-right text-xs bg-emerald-100 border-2 border-emerald-400 px-3 py-1.5 rounded-xl text-emerald-950 font-black">
+          <span>Topic:</span> <span class="text-emerald-700 underline font-black">Single Phase &amp; Auto Transformers</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="max-w-5xl mx-auto w-full px-4 py-6 flex-grow">
+
+    <!-- HERO HIGHLIGHTED ROLL NUMBER ENTRY SECTION -->
+    <section class="relative bg-gradient-to-b from-white to-emerald-50 rounded-3xl shadow-2xl border-4 border-emerald-600 p-6 md:p-8 mb-8 overflow-hidden">
+      <!-- Decorative background glow and accent stripes -->
+      <div class="absolute -top-12 -right-12 w-48 h-48 bg-emerald-300/30 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute -bottom-10 -left-10 w-44 h-44 bg-emerald-400/20 rounded-full blur-2xl pointer-events-none"></div>
+      
+      <!-- Prominent Header Tag -->
+      <div class="flex items-center justify-between flex-wrap gap-2 mb-4">
+        <span class="inline-flex items-center gap-2 bg-emerald-700 text-white text-xs md:text-sm font-black px-4 py-1.5 rounded-full shadow-md tracking-wider uppercase">
+          <i class="ph ph-identification-badge text-lg"></i>
+          Section 'B' Assignment Portal
+        </span>
+        <span class="text-xs md:text-sm font-extrabold text-emerald-900 bg-emerald-200/80 px-3 py-1 rounded-lg border border-emerald-400">
+          Last 3 Digits [X] Formula
+        </span>
+      </div>
+
+      <!-- Main Headline Prompt -->
+      <div class="text-center md:text-left mb-6">
+        <h2 class="text-2xl md:text-3xl font-black text-emerald-950 tracking-tight flex flex-col md:flex-row md:items-center gap-2">
+          <span>Enter Your Name or Roll Number</span>
+          <span class="text-base md:text-xl font-extrabold text-emerald-700">(Type Any Name or 3 Digits)</span>
+        </h2>
+        <p class="text-xs md:text-sm text-slate-600 font-bold mt-1">
+          Type any student name (e.g., <span class="text-emerald-800 underline">Vinoth</span>, <span class="text-emerald-800 underline">Ragu</span>, <span class="text-emerald-800 underline">Praveen</span>) or 3 digits (e.g., <span class="text-emerald-800 underline">121</span>, <span class="text-emerald-800 underline">089</span>). Your name, formula substitution, and step-by-step solutions update instantly!
+        </p>
+      </div>
+
+      <!-- Highlighted Input Grid (Streamlined Full Width) -->
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-stretch">
+        
+        <!-- Prominent Universal Input Box -->
+        <div class="md:col-span-8 bg-white border-3 border-emerald-500 rounded-2xl p-4 md:p-5 shadow-lg flex flex-col justify-between ring-4 ring-emerald-200/60">
+          <label for="rollInput" class="block text-xs md:text-sm font-black text-emerald-950 uppercase tracking-wider mb-2 flex items-center justify-between">
+            <span class="flex items-center gap-1.5">
+              <i class="ph ph-magnifying-glass text-emerald-700 text-lg"></i>
+              Type Any Name or Roll Number:
+            </span>
+            <span id="detectedBadge" class="text-emerald-700 font-mono-code font-black text-xs bg-emerald-100 px-2 py-0.5 rounded">Auto-Detecting</span>
+          </label>
+          
+          <div class="relative my-2">
+            <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+              <i class="ph ph-user-focus text-emerald-700 text-2xl font-bold"></i>
+            </div>
+            <input 
+              type="text" 
+              id="rollInput" 
+              value="VINOTH KUMAR J"
+              placeholder="Type name (e.g. Vinoth) or roll (e.g. 121)..." 
+              oninput="handleUniversalSearchInput()"
+              class="w-full bg-emerald-50/90 border-3 border-emerald-600 text-emerald-950 text-xl md:text-2xl font-black rounded-2xl pl-11 pr-4 py-3.5 focus:outline-none focus:ring-4 focus:ring-emerald-400 focus:bg-white text-left font-sans shadow-inner tracking-wide transition-all"
+            />
+          </div>
+
+          <!-- Quick click shortcuts for various sample students -->
+          <div class="flex flex-wrap items-center gap-1.5 mt-2 pt-2 border-t border-emerald-100 text-xs font-bold text-slate-600">
+            <span class="text-slate-500 font-black">Quick Pick:</span>
+            <button onclick="setSearchDirect('Vinoth')" class="px-2.5 py-1 bg-emerald-100 hover:bg-emerald-200 text-emerald-950 rounded-lg font-black transition">Vinoth (121)</button>
+            <button onclick="setSearchDirect('Ragu')" class="px-2.5 py-1 bg-emerald-100 hover:bg-emerald-200 text-emerald-950 rounded-lg font-black transition">Ragu (089)</button>
+            <button onclick="setSearchDirect('Praveen')" class="px-2.5 py-1 bg-emerald-100 hover:bg-emerald-200 text-emerald-950 rounded-lg font-black transition">Praveen (084)</button>
+            <button onclick="setSearchDirect('Sanjay')" class="px-2.5 py-1 bg-emerald-100 hover:bg-emerald-200 text-emerald-950 rounded-lg font-black transition">Sanjay (098)</button>
+            <button onclick="setSearchDirect('Sham')" class="px-2.5 py-1 bg-emerald-100 hover:bg-emerald-200 text-emerald-950 rounded-lg font-black transition">Sham (105)</button>
+          </div>
+        </div>
+
+        <!-- Solve / Refresh Button -->
+        <div class="md:col-span-4 flex items-stretch">
+          <button 
+            onclick="recalculateAll()" 
+            class="w-full bg-emerald-700 hover:bg-emerald-800 active:scale-98 text-white font-black text-base md:text-lg px-6 py-4 rounded-2xl transition shadow-xl flex flex-col items-center justify-center gap-2 border-b-4 border-emerald-950">
+            <div class="flex items-center gap-2">
+              <i class="ph ph-lightning text-2xl font-bold text-amber-300"></i>
+              <span>Solve Now</span>
+            </div>
+            <span class="text-xs text-emerald-200 font-bold">Update All 5 Solutions</span>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Personalized Student Greeting Banner (Hi 👋 + Name) -->
+      <div id="greetingBanner" class="mt-6 p-4 md:p-5 bg-gradient-to-r from-emerald-700 via-emerald-800 to-emerald-950 text-white rounded-2xl shadow-xl flex items-center justify-between flex-wrap gap-3 border-2 border-emerald-400">
+        <div class="flex items-center gap-3">
+          <span class="text-3xl md:text-4xl animate-bounce">👋</span>
+          <div>
+            <div class="text-xs uppercase font-extrabold tracking-widest text-emerald-300">Student Profile Verified</div>
+            <div class="text-lg md:text-2xl font-black tracking-wide">
+              Hi <span id="studentGreetingName" class="text-emerald-100 uppercase underline decoration-2 underline-offset-4">VINOTH KUMAR J</span>!
+            </div>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <div class="text-xs md:text-sm font-extrabold bg-emerald-900/90 border border-emerald-400 px-4 py-2 rounded-xl font-mono-code text-right">
+            <div>Full Roll: <span id="greetingRollNum" class="text-emerald-200 font-black">25EE121</span></div>
+            <div class="text-xs text-emerald-300">Formula [X]: <span id="greetingDigits" class="text-white font-black">121</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Parameter preview strip -->
+      <div class="mt-4 pt-3 border-t-2 border-emerald-200/80 flex flex-wrap items-center justify-between gap-2 text-xs md:text-sm font-bold text-slate-700">
+        <div class="flex items-center gap-2">
+          <i class="ph ph-sliders text-emerald-700 text-lg"></i>
+          <span>Substituted Transformer Values:</span>
+        </div>
+        <div class="flex flex-wrap items-center gap-2 font-mono-code">
+          <span class="bg-white border border-emerald-300 px-2.5 py-1 rounded-md text-emerald-900 font-black">R<sub>1</sub> = <span id="valFlux">3.121 Ω</span></span>
+          <span class="bg-white border border-emerald-300 px-2.5 py-1 rounded-md text-emerald-900 font-black">R<sub>2</sub> = <span id="valRes">0.0121 Ω</span></span>
+          <span class="bg-white border border-emerald-300 px-2.5 py-1 rounded-md text-emerald-900 font-black">cos &phi;<sub>0</sub> = <span id="valCurr">0.121</span></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Question Tabs Navigation & Download Action -->
+    <nav class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between bg-white border-2 border-emerald-300 rounded-2xl p-2.5 mb-6 shadow-md gap-3">
+      <div class="flex items-center gap-2 overflow-x-auto custom-scroll pb-1 sm:pb-0">
+        <button onclick="goToQuestion(1, true)" id="tabBtn1" class="tab-btn px-4 py-2.5 rounded-xl text-sm font-black flex items-center gap-1.5 transition-all bg-emerald-700 text-white shadow-md">
+          <span>Q1</span> <span class="hidden md:inline font-bold opacity-90">• Equiv Impedance</span>
+        </button>
+        <button onclick="goToQuestion(2, true)" id="tabBtn2" class="tab-btn px-4 py-2.5 rounded-xl text-sm font-black flex items-center gap-1.5 transition-all text-slate-700 hover:bg-emerald-100">
+          <span>Q2</span> <span class="hidden md:inline font-bold opacity-90">• Core Loss &amp; I<sub>m</sub></span>
+        </button>
+        <button onclick="goToQuestion(3, true)" id="tabBtn3" class="tab-btn px-4 py-2.5 rounded-xl text-sm font-black flex items-center gap-1.5 transition-all text-slate-700 hover:bg-emerald-100">
+          <span>Q3</span> <span class="hidden md:inline font-bold opacity-90">• Voltage Reg</span>
+        </button>
+        <button onclick="goToQuestion(4, true)" id="tabBtn4" class="tab-btn px-4 py-2.5 rounded-xl text-sm font-black flex items-center gap-1.5 transition-all text-slate-700 hover:bg-emerald-100">
+          <span>Q4</span> <span class="hidden md:inline font-bold opacity-90">• Auto Transformer</span>
+        </button>
+        <button onclick="goToQuestion(5, true)" id="tabBtn5" class="tab-btn px-4 py-2.5 rounded-xl text-sm font-black flex items-center gap-1.5 transition-all text-slate-700 hover:bg-emerald-100">
+          <span>Q5</span> <span class="hidden md:inline font-bold opacity-90">• Open Circuit</span>
+        </button>
+      </div>
+
+      <!-- Action Buttons: Download Image & Copy Steps -->
+      <div class="flex items-center gap-2 justify-end shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 sm:border-l-2 border-emerald-200 sm:pl-3">
+        <button 
+          id="downloadImgBtn"
+          onclick="downloadAndOpenSolutionImage()" 
+          class="bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white font-black text-xs md:text-sm px-4 py-2.5 rounded-xl flex items-center gap-1.5 shadow-md border border-emerald-800 transition">
+          <i class="ph ph-download-simple text-lg font-bold"></i>
+          <span>Download &amp; Open Image</span>
+        </button>
+        <button 
+          onclick="copyCurrentSolution()" 
+          class="bg-emerald-100 hover:bg-emerald-200 text-emerald-950 font-black text-xs md:text-sm px-3.5 py-2.5 rounded-xl flex items-center gap-1.5 border border-emerald-300 transition">
+          <i class="ph ph-copy text-lg font-bold"></i>
+          <span>Copy</span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Problem Container Card (This element is captured for image export) -->
+    <div id="solutionCard" class="bg-white rounded-2xl shadow-xl border-3 border-emerald-400 overflow-hidden">
+      
+      <!-- Card Watermark Header for Section B submission with Student Info -->
+      <div class="bg-emerald-900 text-white px-5 py-3 border-b-2 border-emerald-700 flex flex-wrap items-center justify-between gap-2">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="bg-emerald-600 text-white font-black text-xs px-2.5 py-1 rounded-md tracking-wider uppercase">
+            Section 'B' (3 Digits)
+          </span>
+          <span class="text-xs md:text-sm font-bold text-emerald-200">
+            Student: <span id="headerStudentName" class="text-white font-extrabold underline">VINOTH KUMAR J</span>
+          </span>
+          <span class="text-xs md:text-sm font-bold text-emerald-200">
+            Roll No: <span id="headerFullRoll" class="text-emerald-300 font-mono-code font-black">25EE121</span>
+            (Digits: <span id="headerRollNum" class="text-white font-mono-code font-black underline">121</span>)
+          </span>
+        </div>
+        <div class="text-xs font-extrabold text-emerald-300 flex items-center gap-1.5">
+          <i class="ph ph-seal-check text-emerald-400 text-base"></i> Assignment #3 • Step-by-Step Solution
+        </div>
+      </div>
+
+      <!-- Question Prompt Area (Large Bold Format) -->
+      <div class="bg-emerald-800 text-white p-5 md:p-7 border-b-2 border-emerald-700">
+        <div class="flex items-center justify-between mb-3">
+          <span id="questionTag" class="text-xs md:text-sm font-black uppercase tracking-widest bg-emerald-950 text-emerald-300 px-3.5 py-1.5 rounded-lg border-2 border-emerald-600">
+            Question 1 of 5
+          </span>
+          <span class="text-xs md:text-sm font-black text-emerald-200 bg-emerald-700/80 px-3 py-1 rounded-md">
+            23EE302 Assignment #3
+          </span>
+        </div>
+        <h2 id="questionStatement" class="text-base md:text-xl font-black leading-relaxed text-emerald-50">
+          <!-- Populated by JS -->
+        </h2>
+      </div>
+
+      <!-- Detailed Step-by-Step Solution Area (Large Bold Format) -->
+      <div class="p-5 md:p-8 space-y-6" id="solutionSteps">
+        <!-- Injected dynamically by JS -->
+      </div>
+
+      <!-- Question Navigation Footer (Previous / Next Question) -->
+      <div class="bg-emerald-100/90 border-t-3 border-emerald-300 p-4 md:px-7 flex flex-wrap items-center justify-between gap-3">
+        <button 
+          id="prevBtn" 
+          onclick="changeQuestion(-1)" 
+          class="flex items-center gap-2 px-5 py-3 rounded-xl border-2 border-emerald-600 bg-white text-emerald-950 font-black text-sm md:text-base hover:bg-emerald-50 transition shadow disabled:opacity-40 disabled:cursor-not-allowed">
+          <i class="ph ph-arrow-left text-lg font-black"></i>
+          <span>Previous Sum</span>
+        </button>
+
+        <div class="text-sm font-black text-emerald-900 bg-white px-4 py-2 rounded-xl border border-emerald-300 shadow-sm">
+          <span>Question <strong id="bottomQNum" class="text-emerald-700 font-extrabold">1</strong> of 5</span>
+        </div>
+
+        <button 
+          id="nextBtn" 
+          onclick="changeQuestion(1)" 
+          class="flex items-center gap-2 px-6 py-3 rounded-xl bg-emerald-700 text-white font-black text-sm md:text-base hover:bg-emerald-800 shadow-md transition active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed border-b-4 border-emerald-950">
+          <span>Next Sum</span>
+          <i class="ph ph-arrow-right text-lg font-black"></i>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Alert / Toast Modal -->
+    <div id="toast" class="fixed bottom-6 right-6 transform translate-y-28 opacity-0 transition-all duration-300 z-50 bg-emerald-950 text-white px-6 py-3.5 rounded-2xl shadow-2xl flex items-center gap-3 border-2 border-emerald-500">
+      <i class="ph ph-check-circle text-emerald-400 text-2xl font-bold"></i>
+      <span id="toastMsg" class="text-sm font-bold">Notification text</span>
+    </div>
+
+    <!-- Image Preview / Open Modal Popup -->
+    <div id="imagePreviewModal" class="fixed inset-0 z-50 hidden bg-black/75 backdrop-blur-sm flex items-center justify-center p-3 md:p-6 transition-opacity">
+      <div class="bg-white rounded-2xl shadow-2xl border-4 border-emerald-600 max-w-3xl w-full max-h-[92vh] flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+        <!-- Modal Header -->
+        <div class="bg-emerald-900 text-white px-5 py-3.5 flex items-center justify-between border-b-2 border-emerald-700">
+          <div class="flex items-center gap-2">
+            <span class="p-1.5 bg-emerald-700 rounded-lg"><i class="ph ph-image text-xl"></i></span>
+            <div>
+              <h3 class="font-black text-sm md:text-base text-white">Downloaded Image Preview</h3>
+              <p class="text-xs text-emerald-200" id="previewFilename">SecB_Solution_Q1.png</p>
+            </div>
+          </div>
+          <button onclick="closePreviewModal()" class="text-white hover:text-rose-300 p-1.5 rounded-lg hover:bg-emerald-800 transition">
+            <i class="ph ph-x text-2xl font-bold"></i>
+          </button>
+        </div>
+
+        <!-- Modal Image Body (Scrollable) -->
+        <div class="p-3 md:p-5 overflow-y-auto custom-scroll flex-grow bg-slate-100 flex items-center justify-center min-h-[300px]">
+          <img id="previewImgElement" src="" alt="Rendered Solution Preview" class="max-w-full h-auto rounded-xl shadow-lg border-2 border-emerald-300" />
+        </div>
+
+        <!-- Modal Footer Actions with Direct Open Link -->
+        <div class="bg-emerald-50 p-4 border-t-2 border-emerald-200 flex flex-wrap items-center justify-between gap-3">
+          <div class="text-xs font-bold text-emerald-900 flex items-center gap-1.5">
+            <i class="ph ph-check-circle-fill text-emerald-600 text-lg"></i>
+            <span>File downloaded automatically to your device!</span>
+          </div>
+          <div class="flex items-center gap-2 w-full sm:w-auto justify-end">
+            <a 
+              id="openInNewTabBtn" 
+              href="#" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              class="bg-emerald-700 hover:bg-emerald-800 text-white font-black text-xs md:text-sm px-4 py-2.5 rounded-xl flex items-center gap-1.5 shadow transition">
+              <i class="ph ph-arrow-square-out text-lg font-bold"></i>
+              <span>Open in New Tab</span>
+            </a>
+            <button 
+              onclick="closePreviewModal()" 
+              class="bg-slate-200 hover:bg-slate-300 text-slate-800 font-black text-xs md:text-sm px-4 py-2.5 rounded-xl transition">
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t-2 border-emerald-300 py-5 text-center text-xs md:text-sm font-bold text-emerald-900">
+    <div class="max-w-5xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+      <p>Dept. of Electrical &amp; Electronics Engineering</p>
+      <p class="font-black text-emerald-700">Assignment #3 Transformer Solver • Section 'B'</p>
+    </div>
+  </footer>
+
+  <!-- Application Logic -->
+  <script>
+    // Complete Section B Roster with exact roll numbers
+    const sectionBStudents = [
+      { name: "MONISHA V", roll: "25EE064", digits: "064" },
+      { name: "MOULISHWARAN S", roll: "25EE065", digits: "065" },
+      { name: "MUHAMAD YASIN I", roll: "25EE066", digits: "066" },
+      { name: "MULLAIVENDHAN A", roll: "25EE067", digits: "067" },
+      { name: "MURUGAN P", roll: "25EE068", digits: "068" },
+      { name: "MURUGASAMY J", roll: "25EE069", digits: "069" },
+      { name: "NATHEESKUMAR M", roll: "25EE070", digits: "070" },
+      { name: "NAVAHARISHA R", roll: "25EE071", digits: "071" },
+      { name: "NAVANEETHA S", roll: "25EE072", digits: "072" },
+      { name: "NAVANITHISH R", roll: "25EE073", digits: "073" },
+      { name: "NAVEENKUMAR P", roll: "25EE074", digits: "074" },
+      { name: "NAVEENKUMAR R", roll: "25EE075", digits: "075" },
+      { name: "NISHCHITHA R", roll: "25EE076", digits: "076" },
+      { name: "NITHISH V", roll: "25EE077", digits: "077" },
+      { name: "PARTHIBAN S", roll: "25EE078", digits: "078" },
+      { name: "POOVARAGAVAN V", roll: "25EE080", digits: "080" },
+      { name: "POOVARASAN T", roll: "25EE081", digits: "081" },
+      { name: "PRAGADEESHWARAN S", roll: "25EE082", digits: "082" },
+      { name: "PRATHISH M", roll: "25EE083", digits: "083" },
+      { name: "PRAVEEN J", roll: "25EE084", digits: "084" },
+      { name: "PREMKUMAR S", roll: "25EE085", digits: "085" },
+      { name: "PRIYADHARSHINI M", roll: "25EE086", digits: "086" },
+      { name: "RAGAVAN S", roll: "25EE088", digits: "088" },
+      { name: "RAGU S", roll: "25EE089", digits: "089" },
+      { name: "RAKSHITHA S", roll: "25EE090", digits: "090" },
+      { name: "RAMAN T", roll: "25EE091", digits: "091" },
+      { name: "RIYALINCY D", roll: "25EE092", digits: "092" },
+      { name: "ROHITH S", roll: "25EE093", digits: "093" },
+      { name: "SABARIVASAN K", roll: "25EE094", digits: "094" },
+      { name: "SAKTHI ABINAYA R", roll: "25EE095", digits: "095" },
+      { name: "SAM DISILVA S", roll: "25EE096", digits: "096" },
+      { name: "SANGEETHA S", roll: "25EE097", digits: "097" },
+      { name: "SANJAY GANDHI A", roll: "25EE098", digits: "098" },
+      { name: "SANTHOSH D", roll: "25EE099", digits: "099" },
+      { name: "SANTHOSH V", roll: "25EE100", digits: "100" },
+      { name: "SARATHKUMAR M", roll: "25EE101", digits: "101" },
+      { name: "SASITHARAN G", roll: "25EE102", digits: "102" },
+      { name: "SATHISHKUMAR D", roll: "25EE103", digits: "103" },
+      { name: "SHAARIKA R", roll: "25EE104", digits: "104" },
+      { name: "SHAM P", roll: "25EE105", digits: "105" },
+      { name: "SIVA I", roll: "25EE106", digits: "106" },
+      { name: "SIVAMANIKANDAN D", roll: "25EE107", digits: "107" },
+      { name: "SIVANI C", roll: "25EE108", digits: "108" },
+      { name: "SOWBARNIKASRI K M", roll: "25EE109", digits: "109" },
+      { name: "SOWMIYA R", roll: "25EE110", digits: "110" },
+      { name: "SRIJANANI G", roll: "25EE111", digits: "111" },
+      { name: "SRIKANTH N", roll: "25EE112", digits: "112" },
+      { name: "SRIKANTH T", roll: "25EE113", digits: "113" },
+      { name: "STALIN G S", roll: "25EE114", digits: "114" },
+      { name: "SUBHASRI R", roll: "25EE115", digits: "115" },
+      { name: "THIRUMOORTHI M", roll: "25EE116", digits: "116" },
+      { name: "UBAITH RAHMAN S", roll: "25EE117", digits: "117" },
+      { name: "VANAJA P", roll: "25EE118", digits: "118" },
+      { name: "VASUDEVAN R", roll: "25EE119", digits: "119" },
+      { name: "VIGNESHKUMAR V", roll: "25EE120", digits: "120" },
+      { name: "VINOTH KUMAR J", roll: "25EE121", digits: "121" },
+      { name: "VISHALI K", roll: "25EE122", digits: "122" },
+      { name: "VISHALIKA K", roll: "25EE123", digits: "123" },
+      { name: "YOGESH S", roll: "25EE124", digits: "124" },
+      { name: "YOGESHWARAN M", roll: "25EE125", digits: "125" },
+      { name: "YUVARAJ M", roll: "25EE126", digits: "126" },
+      { name: "VIGNESH I", roll: "25EE127", digits: "127" },
+      { name: "RAJASEKAR B", roll: "25EE128", digits: "128" },
+      { name: "KAVIRAJ P R", roll: "25EE129", digits: "129" },
+      { name: "VIJAY K S", roll: "25EE130", digits: "130" }
+    ];
+
+    // App State - default to Vinoth Kumar J (121)
+    let currentQ = 1;
+    let currentRollDigits = "121";
+    let currentStudentName = "VINOTH KUMAR J";
+    let currentFullRoll = "25EE121";
+
+    // Universal Search: handles typing Student Name, Full Roll No, or Digits
+    function handleUniversalSearchInput() {
+      const input = document.getElementById('rollInput');
+      const query = input.value.trim().toUpperCase();
+      const detectedBadge = document.getElementById('detectedBadge');
+
+      if (!query) {
+        detectedBadge.innerText = 'Waiting...';
+        return;
+      }
+
+      // 1. Check if the input contains digits
+      const digitsOnly = query.replace(/[^0-9]/g, '');
+
+      // 2. Try to match by student name substring (e.g. "VINOTH", "MONISHA", "VIJAY")
+      let match = sectionBStudents.find(s => s.name.toUpperCase().includes(query));
+
+      // 3. If no name match, try to match by exact roll string (e.g. "25EE121" or "EE121")
+      if (!match) {
+        match = sectionBStudents.find(s => s.roll.toUpperCase().includes(query));
+      }
+
+      // 4. If still no match and user typed digits, find by 3-digit code or number
+      if (!match && digitsOnly.length > 0) {
+        const paddedDigits = digitsOnly.padStart(3, '0');
+        match = sectionBStudents.find(s => s.digits === paddedDigits || parseInt(s.digits, 10) === parseInt(digitsOnly, 10));
+      }
+
+      if (match) {
+        currentStudentName = match.name;
+        currentFullRoll = match.roll;
+        currentRollDigits = match.digits;
+        detectedBadge.innerText = `Matched #${match.digits}`;
+      } else {
+        // Custom name or custom roll not in predefined list
+        currentStudentName = query;
+        if (digitsOnly.length > 0) {
+          currentRollDigits = digitsOnly.slice(-3).padStart(3, '0');
+        } else {
+          let hash = 0;
+          for (let i = 0; i < query.length; i++) {
+            hash = (hash * 31 + query.charCodeAt(i)) % 900;
+          }
+          currentRollDigits = String(100 + Math.abs(hash)).padStart(3, '0').slice(-3);
+        }
+        currentFullRoll = `25EE${currentRollDigits}`;
+        detectedBadge.innerText = `Custom #${currentRollDigits}`;
+      }
+
+      updateUIDisplays();
+      renderCurrentQuestion();
+    }
+
+    // Direct helper for quick buttons
+    function setSearchDirect(query) {
+      document.getElementById('rollInput').value = query;
+      handleUniversalSearchInput();
+      showToast(`Hi 👋 ${currentStudentName}`);
+    }
+
+    function setRollDirect(roll) {
+      setSearchDirect(roll);
+    }
+
+    function handleManualRollChange() {
+      handleUniversalSearchInput();
+    }
+
+    function updateUIDisplays() {
+      const headerRoll = document.getElementById('headerRollNum');
+      if (headerRoll) headerRoll.innerText = currentRollDigits;
+      
+      const headerStudent = document.getElementById('headerStudentName');
+      if (headerStudent) headerStudent.innerText = currentStudentName;
+
+      const headerFull = document.getElementById('headerFullRoll');
+      if (headerFull) headerFull.innerText = currentFullRoll;
+      
+      // Update Hi 👋 greeting banner
+      document.getElementById('studentGreetingName').innerText = currentStudentName;
+      document.getElementById('greetingRollNum').innerText = currentFullRoll;
+      const gDigits = document.getElementById('greetingDigits');
+      if (gDigits) gDigits.innerText = currentRollDigits;
+
+      document.getElementById('valFlux').innerText = `3.${currentRollDigits} Ω`;
+      document.getElementById('valRes').innerText = `0.0${currentRollDigits} Ω`;
+      document.getElementById('valCurr').innerText = `0.${currentRollDigits}`;
+    }
+
+    function recalculateAll() {
+      handleUniversalSearchInput();
+      showToast(`Hi 👋 ${currentStudentName}! Calculations ready.`);
+    }
+
+    function goToQuestion(qNum, shouldScroll = false) {
+      currentQ = qNum;
+      updateTabStyles();
+      renderCurrentQuestion();
+
+      if (shouldScroll) {
+        scrollToQuestionTop();
+      }
+    }
+
+    function changeQuestion(delta) {
+      const target = currentQ + delta;
+      if (target >= 1 && target <= 5) {
+        goToQuestion(target, true);
+      }
+    }
+
+    function scrollToQuestionTop() {
+      // Smoothly scroll to the top of the solution card with offset for fixed header
+      const target = document.getElementById('solutionCard');
+      if (target) {
+        const headerOffset = 90;
+        const elementPosition = target.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+      }
+    }
+
+    function updateTabStyles() {
+      for (let i = 1; i <= 5; i++) {
+        const btn = document.getElementById(`tabBtn${i}`);
+        if (i === currentQ) {
+          btn.className = "tab-btn px-4 py-2.5 rounded-xl text-sm font-black flex items-center gap-1.5 transition-all bg-emerald-700 text-white shadow-md";
+        } else {
+          btn.className = "tab-btn px-4 py-2.5 rounded-xl text-sm font-black flex items-center gap-1.5 transition-all text-slate-700 hover:bg-emerald-100";
+        }
+      }
+      document.getElementById('prevBtn').disabled = (currentQ === 1);
+      document.getElementById('nextBtn').disabled = (currentQ === 5);
+      document.getElementById('questionTag').innerText = `Question ${currentQ} of 5`;
+      document.getElementById('bottomQNum').innerText = currentQ;
+    }
+
+    function getRollX() {
+      return currentRollDigits || "105";
+    }
+
+    function getRollDecimal() {
+      return parseFloat("0." + getRollX());
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toastMsg').innerText = msg;
+      toast.classList.remove('translate-y-28', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+      setTimeout(() => {
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('translate-y-28', 'opacity-0');
+      }, 2800);
+    }
+
+    // Modal control functions
+    function openPreviewModal(imgDataUrl, filename) {
+      const modal = document.getElementById('imagePreviewModal');
+      const img = document.getElementById('previewImgElement');
+      const filenameLabel = document.getElementById('previewFilename');
+      const openBtn = document.getElementById('openInNewTabBtn');
+
+      img.src = imgDataUrl;
+      filenameLabel.innerText = filename;
+      openBtn.href = imgDataUrl;
+
+      modal.classList.remove('hidden');
+    }
+
+    function closePreviewModal() {
+      document.getElementById('imagePreviewModal').classList.add('hidden');
+    }
+
+    // High resolution Image Download handler with automatic download and immediate Open option
+    function downloadAndOpenSolutionImage() {
+      const element = document.getElementById('solutionCard');
+      const dlBtn = document.getElementById('downloadImgBtn');
+      const originalText = dlBtn.innerHTML;
+      
+      dlBtn.disabled = true;
+      dlBtn.innerHTML = `<i class="ph ph-spinner animate-spin text-lg"></i> Generating Image...`;
+      showToast("Generating image of Assignment 3 Question " + currentQ + "...");
+
+      // Configure html2canvas for crisp image rendering
+      html2canvas(element, {
+        scale: 2, // High resolution retina scale
+        useCORS: true,
+        backgroundColor: '#ffffff',
+        logging: false,
+        windowWidth: element.scrollWidth
+      }).then(canvas => {
+        const imgData = canvas.toDataURL('image/png');
+        const link = document.createElement('a');
+        const cleanName = currentStudentName.replace(/[^a-zA-Z0-9]/g, '_');
+        const filename = `Assign3_SecB_${cleanName}_Roll_${getRollX()}_Q${currentQ}.png`;
+        
+        // 1. Trigger Automatic Download
+        link.download = filename;
+        link.href = imgData;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        // 2. Open interactive preview modal with an immediate "Open in New Tab" button
+        openPreviewModal(imgData, filename);
+
+        dlBtn.disabled = false;
+        dlBtn.innerHTML = originalText;
+        showToast("Image downloaded! Click 'Open in New Tab' to view full size.");
+      }).catch(err => {
+        console.error("Download failed:", err);
+        dlBtn.disabled = false;
+        dlBtn.innerHTML = originalText;
+        showToast("Error generating image. Please try again.");
+      });
+    }
+
+    // Backward compatibility wrapper
+    function downloadSolutionAsImage() {
+      downloadAndOpenSolutionImage();
+    }
+
+    // Render Logic for All 5 Problems of Assignment 3 (Transformers) in BOLD & LONG-FORM FORMAT
+    function renderCurrentQuestion() {
+      const qStmt = document.getElementById('questionStatement');
+      const container = document.getElementById('solutionSteps');
+      const rollStr = getRollX();
+
+      if (currentQ === 1) {
+        // ASSIGNMENT 3 - QUESTION 1
+        qStmt.innerHTML = `
+          <strong>1.</strong> A 20 kVA, 2000/200 V, 50 Hz, single-phase transformer has primary resistance of 
+          <span class="text-white font-mono-code font-black underline bg-emerald-950 px-2 py-0.5 rounded">3.${rollStr} Ω</span> 
+          and leakage reactance of <strong>5 Ω</strong>. The secondary resistance is 
+          <span class="text-white font-mono-code font-black underline bg-emerald-950 px-2 py-0.5 rounded">0.0${rollStr} Ω</span> 
+          and leakage reactance is 
+          <span class="text-white font-mono-code font-black underline bg-emerald-950 px-2 py-0.5 rounded">0.0${rollStr} Ω</span>. 
+          Determine: <br/>
+          <strong>(i)</strong> Equivalent resistance, leakage reactance and impedance referred to secondary.<br/>
+          <strong>(ii)</strong> Equivalent resistance, leakage reactance and impedance referred to primary.
+        `;
+
+        const V1 = 2000;
+        const V2 = 200;
+        const K = V2 / V1; // 0.1
+        const R1 = parseFloat("3." + rollStr);
+        const X1 = 5.0;
+        const R2 = parseFloat("0.0" + rollStr);
+        const X2 = parseFloat("0.0" + rollStr);
+
+        // (i) Referred to secondary
+        const R02 = R2 + (R1 * K * K);
+        const X02 = X2 + (X1 * K * K);
+        const Z02 = Math.sqrt((R02 * R02) + (X02 * X02));
+
+        // (ii) Referred to primary
+        const R01 = R1 + (R2 / (K * K));
+        const X01 = X1 + (X2 / (K * K));
+        const Z01 = Math.sqrt((R01 * R01) + (X01 * X01));
+
+        container.innerHTML = `
+          <!-- Step 1: Given Data & Transformation Ratio -->
+          <div class="bg-emerald-50 border-2 border-emerald-400 p-5 rounded-2xl shadow-sm">
+            <h3 class="text-base md:text-lg font-black text-emerald-950 uppercase tracking-wide mb-3 flex items-center gap-2">
+              <i class="ph ph-list-numbers text-emerald-700 text-xl font-black"></i>
+              STEP 1: GIVEN DATA &amp; TRANSFORMATION RATIO (${currentStudentName} • Roll Digits: ${rollStr})
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm md:text-base font-bold text-slate-900">
+              <div class="bg-white p-3 rounded-xl border border-emerald-200">• Rating = <strong>20 kVA, 50 Hz</strong></div>
+              <div class="bg-white p-3 rounded-xl border border-emerald-200">• Primary Voltage (<strong>V<sub>1</sub></strong>) = <strong>2000 V</strong>, Secondary Voltage (<strong>V<sub>2</sub></strong>) = <strong>200 V</strong></div>
+              <div class="bg-white p-3 rounded-xl border border-emerald-200">• Primary Resistance (<strong>R<sub>1</sub></strong>) = 3.${rollStr} &Omega; = <strong class="text-emerald-800 font-mono-code">${R1.toFixed(4)} &Omega;</strong></div>
+              <div class="bg-white p-3 rounded-xl border border-emerald-200">• Primary Leakage Reactance (<strong>X<sub>1</sub></strong>) = <strong class="text-emerald-800 font-mono-code">5 &Omega;</strong></div>
+              <div class="bg-white p-3 rounded-xl border border-emerald-200">• Secondary Resistance (<strong>R<sub>2</sub></strong>) = 0.0${rollStr} &Omega; = <strong class="text-emerald-800 font-mono-code">${R2.toFixed(5)} &Omega;</strong></div>
+              <div class="bg-white p-3 rounded-xl border border-emerald-200">• Secondary Leakage Reactance (<strong>X<sub>2</sub></strong>) = 0.0${rollStr} &Omega; = <strong class="text-emerald-800 font-mono-code">${X2.toFixed(5)} &Omega;</strong></div>
+              <div class="bg-white p-3 rounded-xl border-2 border-emerald-400 md:col-span-2 font-mono-code">
+                • Transformation Ratio (<strong>K</strong>) = V<sub>2</sub> / V<sub>1</sub> = 200 / 2000 = <strong class="text-emerald-900 font-black">0.1</strong> &nbsp;|&nbsp; K<sup>2</sup> = (0.1)<sup>2</sup> = <strong class="text-emerald-900 font-black">0.01</strong>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 2: (i) Referred to Secondary -->
+          <div class="bg-white border-3 border-emerald-500 p-5 md:p-6 rounded-2xl shadow-md">
+            <div class="inline-block bg-emerald-800 text-white text-sm md:text-base px-4 py-1.5 rounded-lg font-black mb-3">
+              PART (i): PARAMETERS REFERRED TO SECONDARY
+            </div>
+            <div class="bg-emerald-50 p-4 rounded-xl border border-emerald-300 font-mono-code text-sm md:text-base space-y-3 text-slate-900 font-bold">
+              <div>
+                <strong>1. Equivalent Resistance referred to Secondary (R<sub>02</sub>):</strong>
+                <div class="pl-4">R<sub>02</sub> = R<sub>2</sub> + (R<sub>1</sub> &middot; K<sup>2</sup>)</div>
+                <div class="pl-4">R<sub>02</sub> = ${R2.toFixed(5)} + (${R1.toFixed(4)} &times; 0.01) = ${R2.toFixed(5)} + ${(R1 * 0.01).toFixed(5)}</div>
+                <div class="bg-white p-2.5 rounded-lg border-2 border-emerald-400 text-emerald-900 font-black mt-1">
+                  &rArr; R<sub>02</sub> = ${R02.toFixed(5)} &Omega;
+                </div>
+              </div>
+
+              <div>
+                <strong>2. Equivalent Leakage Reactance referred to Secondary (X<sub>02</sub>):</strong>
+                <div class="pl-4">X<sub>02</sub> = X<sub>2</sub> + (X<sub>1</sub> &middot; K<sup>2</sup>)</div>
+                <div class="pl-4">X<sub>02</sub> = ${X2.toFixed(5)} + (5 &times; 0.01) = ${X2.toFixed(5)} + 0.05</div>
+                <div class="bg-white p-2.5 rounded-lg border-2 border-emerald-400 text-emerald-900 font-black mt-1">
+                  &rArr; X<sub>02</sub> = ${X02.toFixed(5)} &Omega;
+                </div>
+              </div>
+
+              <div>
+                <strong>3. Equivalent Impedance referred to Secondary (Z<sub>02</sub>):</strong>
+                <div class="pl-4">Z<sub>02</sub> = &radic;(R<sub>02</sub><sup>2</sup> + X<sub>02</sub><sup>2</sup>)</div>
+                <div class="pl-4">Z<sub>02</sub> = &radic;[(${R02.toFixed(5)})<sup>2</sup> + (${X02.toFixed(5)})<sup>2</sup>] = &radic;[${(R02 * R02).toFixed(6)} + ${(X02 * X02).toFixed(6)}]</div>
+                <div class="bg-white p-3 rounded-lg border-2 border-emerald-600 text-emerald-950 font-black text-base md:text-lg mt-1">
+                  &rArr; Z<sub>02</sub> = ${Z02.toFixed(5)} &Omega;
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 3: (ii) Referred to Primary -->
+          <div class="bg-white border-3 border-emerald-500 p-5 md:p-6 rounded-2xl shadow-md">
+            <div class="inline-block bg-emerald-800 text-white text-sm md:text-base px-4 py-1.5 rounded-lg font-black mb-3">
+              PART (ii): PARAMETERS REFERRED TO PRIMARY
+            </div>
+            <div class="bg-emerald-50 p-4 rounded-xl border border-emerald-300 font-mono-code text-sm md:text-base space-y-3 text-slate-900 font-bold">
+              <div>
+                <strong>1. Equivalent Resistance referred to Primary (R<sub>01</sub>):</strong>
+                <div class="pl-4">R<sub>01</sub> = R<sub>1</sub> + (R<sub>2</sub> / K<sup>2</sup>)</div>
+                <div class="pl-4">R<sub>01</sub> = ${R1.toFixed(4)} + (${R2.toFixed(5)} / 0.01) = ${R1.toFixed(4)} + ${(R2 / 0.01).toFixed(4)}</div>
+                <div class="bg-white p-2.5 rounded-lg border-2 border-emerald-400 text-emerald-900 font-black mt-1">
+                  &rArr; R<sub>01</sub> = ${R01.toFixed(4)} &Omega;
+                </div>
+              </div>
+
+              <div>
+                <strong>2. Equivalent Leakage Reactance referred to Primary (X<sub>01</sub>):</strong>
+                <div class="pl-4">X<sub>01</sub> = X<sub>1</sub> + (X<sub>2</sub> / K<sup>2</sup>)</div>
+                <div class="pl-4">X<sub>01</sub> = 5 + (${X2.toFixed(5)} / 0.01) = 5 + ${(X2 / 0.01).toFixed(4)}</div>
+                <div class="bg-white p-2.5 rounded-lg border-2 border-emerald-400 text-emerald-900 font-black mt-1">
+                  &rArr; X<sub>01</sub> = ${X01.toFixed(4)} &Omega;
+                </div>
+              </div>
+
+              <div>
+                <strong>3. Equivalent Impedance referred to Primary (Z<sub>01</sub>):</strong>
+                <div class="pl-4">Z<sub>01</sub> = &radic;(R<sub>01</sub><sup>2</sup> + X<sub>01</sub><sup>2</sup>)</div>
+                <div class="pl-4">Z<sub>01</sub> = &radic;[(${R01.toFixed(4)})<sup>2</sup> + (${X01.toFixed(4)})<sup>2</sup>] = &radic;[${(R01 * R01).toFixed(4)} + ${(X01 * X01).toFixed(4)}]</div>
+                <div class="bg-white p-3 rounded-lg border-2 border-emerald-600 text-emerald-950 font-black text-base md:text-lg mt-1">
+                  &rArr; Z<sub>01</sub> = ${Z01.toFixed(4)} &Omega;
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      } 
+      else if (currentQ === 2) {
+        // ASSIGNMENT 3 - QUESTION 2
+        qStmt.innerHTML = `
+          <strong>2.</strong> A 230/2300 V transformer takes a no-load current of <strong>5 A</strong> at 
+          <span class="text-white font-mono-code font-black underline bg-emerald-950 px-2 py-0.5 rounded">0.${rollStr}</span> 
+          power factor lagging. Find: <br/>
+          <strong>(i)</strong> The Core Loss and <strong>(ii)</strong> Magnetising Current.
+        `;
+
+        const V1 = 230;
+        const I0 = 5;
+        const pf = parseFloat("0." + rollStr);
+        const sinPhi0 = Math.sqrt(Math.max(0, 1 - (pf * pf)));
+
+        const W0 = V1 * I0 * pf;
+        const Im = I0 * sinPhi0;
+        const Iw = I0 * pf;
+
+        container.innerHTML = `
+          <!-- Step 1: Given Data -->
+          <div class="bg-emerald-50 border-2 border-emerald-400 p-5 rounded-2xl shadow-sm">
+            <h3 class="text-base md:text-lg font-black text-emerald-950 uppercase tracking-wide mb-3 flex items-center gap-2">
+              <i class="ph ph-list-numbers text-emerald-700 text-xl font-black"></i>
+              STEP 1: GIVEN DATA (${currentStudentName} • Roll Digits: ${rollStr})
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm md:text-base font-bold text-slate-900">
+              <div class="bg-white p-3 rounded-xl border border-emerald-200">• Primary Supply Voltage (<strong>V<sub>1</sub></strong>) = <strong>230 V</strong></div>
+              <div class="bg-white p-3 rounded-xl border border-emerald-200">• Secondary Voltage (<strong>V<sub>2</sub></strong>) = <strong>2300 V</strong></div>
+              <div class="bg-white p-3 rounded-xl border border-emerald-200">• No-load Current (<strong>I<sub>0</sub></strong>) = <strong>5 Amperes</strong></div>
+              <div class="bg-white p-3 rounded-xl border border-emerald-200">• No-load Power Factor (<strong>cos &phi;<sub>0</sub></strong>) = 0.${rollStr} = <strong class="text-emerald-800 font-mono-code">${pf.toFixed(4)} (lagging)</strong></div>
+            </div>
+          </div>
+
+          <!-- Step 2: (i) Core Loss -->
+          <div class="bg-white border-3 border-emerald-500 p-5 md:p-6 rounded-2xl shadow-md">
+            <div class="inline-block bg-emerald-800 text-white text-sm md:text-base px-4 py-1.5 rounded-lg font-black mb-3">
+              PART (i): CORE LOSS (W<sub>0</sub>)
+            </div>
+            <p class="text-sm font-bold text-slate-700 mb-3">
+              On no-load, the input power drawn by the transformer supplies the core (iron) losses.
+            </p>
+            <div class="bg-emerald-50 p-4 rounded-xl border border-emerald-300 font-mono-code text-sm md:text-base space-y-2 text-slate-900 font-bold">
+              <div>Formula: <strong>W<sub>0</sub> = V<sub>1</sub> &middot; I<sub>0</sub> &middot; cos &phi;<sub>0</sub></strong></div>
+              <div class="pl-4">W<sub>0</sub> = 230 &times; 5 &times; ${pf.toFixed(4)}</div>
+              <div class="pl-4">W<sub>0</sub> = 1150 &times; ${pf.toFixed(4)}</div>
+              <div class="bg-white p-3 rounded-lg border-2 border-emerald-600 text-emerald-950 font-black text-base md:text-xl mt-2">
+                &rArr; Core Loss (W<sub>0</sub>) = <span class="underline text-emerald-800">${W0.toFixed(2)} Watts</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 3: (ii) Magnetising Current -->
+          <div class="bg-white border-3 border-emerald-500 p-5 md:p-6 rounded-2xl shadow-md">
+            <div class="inline-block bg-emerald-800 text-white text-sm md:text-base px-4 py-1.5 rounded-lg font-black mb-3">
+              PART (ii): MAGNETISING CURRENT (I<sub>m</sub>)
+            </div>
+            <div class="bg-emerald-50 p-4 rounded-xl border border-emerald-300 font-mono-code text-sm md:text-base space-y-2 text-slate-900 font-bold">
+              <div><strong>1. Calculate sin &phi;<sub>0</sub>:</strong></div>
+              <div class="pl-4">sin &phi;<sub>0</sub> = &radic;(1 - cos<sup>2</sup>&phi;<sub>0</sub>) = &radic;[1 - (${pf.toFixed(4)})<sup>2</sup>]</div>
+              <div class="pl-4">sin &phi;<sub>0</sub> = &radic;[1 - ${(pf * pf).toFixed(6)}] = &radic;${(1 - pf * pf).toFixed(6)} = <strong class="text-emerald-900">${sinPhi0.toFixed(5)}</strong></div>
+              
+              <div class="pt-2"><strong>2. Magnetising Current (I<sub>m</sub>):</strong></div>
+              <div class="pl-4">I<sub>m</sub> = I<sub>0</sub> &middot; sin &phi;<sub>0</sub> = 5 &times; ${sinPhi0.toFixed(5)}</div>
+              <div class="text-xs text-slate-600 pl-4">(Note: Working / Core loss component I<sub>w</sub> = I<sub>0</sub> cos &phi;<sub>0</sub> = ${Iw.toFixed(3)} A)</div>
+              <div class="bg-white p-3 rounded-lg border-2 border-emerald-600 text-emerald-950 font-black text-base md:text-xl mt-2">
+                &rArr; Magnetising Current (I<sub>m</sub>) = <span class="underline text-emerald-800">${Im.toFixed(3)} Amperes</span>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+      else if (currentQ === 3) {
+        // ASSIGNMENT 3 - QUESTION 3
+        qStmt.innerHTML = `
+          <strong>3.</strong> Calculate the percentage voltage regulation of a transformer in which the percentage resistive drop is <strong>2%</strong> and percentage reactance drop is <strong>8%</strong> when the power factor is: <br/>
+          <strong>(i)</strong> <span class="text-white font-mono-code font-black underline bg-emerald-950 px-2 py-0.5 rounded">0.8${rollStr}</span> lagging, &nbsp;
+          <strong>(ii)</strong> <span class="text-white font-mono-code font-black underline bg-emerald-950 px-2 py-0.5 rounded">0.8${rollStr}</span> leading, &nbsp;
+          <strong>(iii)</strong> <strong>UPF</strong> (Unity Power Factor).
+        `;
+
+        const Vr = 2; // % resistive drop
+        const Vx = 8; // % reactance drop
+        const pf = parseFloat("0.8" + rollStr);
+        const sinPhi = Math.sqrt(Math.max(0, 1 - (pf * pf)));
+
+        // (i) Lagging
+        const regLag = (Vr * pf) + (Vx * sinPhi);
+
+        // (ii) Leading
+        const regLead = (Vr * pf) - (Vx * sinPhi);
+
+        // (iii) UPF (cos phi = 1, sin phi = 0)
+        const regUPF = (Vr * 1) + (Vx * 0);
+
+        container.innerHTML = `
+          <!-- Step 1: Given Data -->
+          <div class="bg-emerald-50 border-2 border-emerald-400 p-5 rounded-2xl shadow-sm">
+            <h3 class="text-base md:text-lg font-black text-emerald-950 uppercase tracking-wide mb-3 flex items-center gap-2">
+              <i class="ph ph-list-numbers text-emerald-700 text-xl font-black"></i>
+              STEP 1: GIVEN DATA &amp; TRIGONOMETRIC VALUES (${currentStudentName} • Roll: ${rollStr})
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm md:text-base font-bold text-slate-900">
+              <div class="bg-white p-3 rounded-xl border border-emerald-200">• Percentage Resistive Drop (<strong>%V<sub>r</sub></strong>) = <strong>2%</strong></div>
+              <div class="bg-white p-3 rounded-xl border border-emerald-200">• Percentage Reactance Drop (<strong>%V<sub>x</sub></strong>) = <strong>8%</strong></div>
+              <div class="bg-white p-3 rounded-xl border border-emerald-200 font-mono-code">• cos &phi; = 0.8${rollStr} = <strong class="text-emerald-900">${pf.toFixed(5)}</strong></div>
+              <div class="bg-white p-3 rounded-xl border border-emerald-200 font-mono-code">• sin &phi; = &radic;(1 - cos<sup>2</sup>&phi;) = <strong class="text-emerald-900">${sinPhi.toFixed(5)}</strong></div>
+            </div>
+          </div>
+
+          <!-- Case (i) Lagging -->
+          <div class="bg-white border-3 border-emerald-500 p-5 md:p-6 rounded-2xl shadow-md">
+            <div class="inline-block bg-emerald-800 text-white text-sm md:text-base px-4 py-1.5 rounded-lg font-black mb-3">
+              CASE (i): POWER FACTOR = 0.8${rollStr} LAGGING
+            </div>
+            <div class="bg-emerald-50 p-4 rounded-xl border border-emerald-300 font-mono-code text-sm md:text-base space-y-2 text-slate-900 font-bold">
+              <div>Formula for Lagging PF: <strong>%Regulation = (%V<sub>r</sub> &middot; cos &phi;) + (%V<sub>x</sub> &middot; sin &phi;)</strong></div>
+              <div class="pl-4">%Reg = (2 &times; ${pf.toFixed(5)}) + (8 &times; ${sinPhi.toFixed(5)})</div>
+              <div class="pl-4">%Reg = ${(Vr * pf).toFixed(4)} + ${(Vx * sinPhi).toFixed(4)}</div>
+              <div class="bg-white p-3 rounded-lg border-2 border-emerald-600 text-emerald-950 font-black text-base md:text-xl mt-2">
+                &rArr; Percentage Voltage Regulation (Lagging) = <span class="underline text-emerald-800">${regLag.toFixed(2)} %</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Case (ii) Leading -->
+          <div class="bg-white border-3 border-emerald-500 p-5 md:p-6 rounded-2xl shadow-md">
+            <div class="inline-block bg-emerald-800 text-white text-sm md:text-base px-4 py-1.5 rounded-lg font-black mb-3">
+              CASE (ii): POWER FACTOR = 0.8${rollStr} LEADING
+            </div>
+            <div class="bg-emerald-50 p-4 rounded-xl border border-emerald-300 font-mono-code text-sm md:text-base space-y-2 text-slate-900 font-bold">
+              <div>Formula for Leading PF: <strong>%Regulation = (%V<sub>r</sub> &middot; cos &phi;) - (%V<sub>x</sub> &middot; sin &phi;)</strong></div>
+              <div class="pl-4">%Reg = (2 &times; ${pf.toFixed(5)}) - (8 &times; ${sinPhi.toFixed(5)})</div>
+              <div class="pl-4">%Reg = ${(Vr * pf).toFixed(4)} - ${(Vx * sinPhi).toFixed(4)}</div>
+              <div class="bg-white p-3 rounded-lg border-2 border-emerald-600 text-emerald-950 font-black text-base md:text-xl mt-2">
+                &rArr; Percentage Voltage Regulation (Leading) = <span class="underline text-emerald-800">${regLead.toFixed(2)} %</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Case (iii) UPF -->
+          <div class="bg-white border-3 border-emerald-500 p-5 md:p-6 rounded-2xl shadow-md">
+            <div class="inline-block bg-emerald-800 text-white text-sm md:text-base px-4 py-1.5 rounded-lg font-black mb-3">
+              CASE (iii): UNITY POWER FACTOR (UPF)
+            </div>
+            <div class="bg-emerald-50 p-4 rounded-xl border border-emerald-300 font-mono-code text-sm md:text-base space-y-2 text-slate-900 font-bold">
+              <div>At Unity Power Factor: <strong>cos &phi; = 1</strong> and <strong>sin &phi; = 0</strong></div>
+              <div class="pl-4">%Reg = (%V<sub>r</sub> &middot; cos &phi;) + (%V<sub>x</sub> &middot; sin &phi;)</div>
+              <div class="pl-4">%Reg = (2 &times; 1) + (8 &times; 0) = 2 + 0</div>
+              <div class="bg-white p-3 rounded-lg border-2 border-emerald-600 text-emerald-950 font-black text-base md:text-xl mt-2">
+                &rArr; Percentage Voltage Regulation (UPF) = <span class="underline text-emerald-800">${regUPF.toFixed(2)} %</span>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+      else if (currentQ === 4) {
+        // ASSIGNMENT 3 - QUESTION 4
+        qStmt.innerHTML = `
+          <strong>4.</strong> A <strong>10 kVA, 240/120 V</strong> transformer is reconnected as an auto-transformer. Find: <br/>
+          <strong>(i)</strong> kVA rating as an auto-transformer <br/>
+          <strong>(ii)</strong> Percentage saving in copper.
+        `;
+
+        // Note: Standard step-up/additive auto-transformer connection (240V + 120V = 360V)
+        const kva_2w = 10;
+        const VH = 240;
+        const VL = 120;
+        
+        // Additive polarity gives 240 / 360 V auto-transformer
+        // K_auto = V_low / V_high = 240 / 360 = 2/3
+        const V_high_auto = VH + VL; // 360 V
+        const V_low_auto = VH; // 240 V
+        const K_auto = V_low_auto / V_high_auto; // 2/3
+        const kva_auto = kva_2w / (1 - K_auto); // 30 kVA
+        const cu_saving = K_auto * 100; // 66.67%
+
+        container.innerHTML = `
+          <!-- Given Data & Connection Setup -->
+          <div class="bg-emerald-50 border-2 border-emerald-400 p-5 rounded-2xl shadow-sm">
+            <h3 class="text-base md:text-lg font-black text-emerald-950 uppercase tracking-wide mb-3 flex items-center gap-2">
+              <i class="ph ph-arrows-merge text-emerald-700 text-xl font-black"></i>
+              GIVEN DATA &amp; AUTO-TRANSFORMER CONNECTION (${currentStudentName} • Roll: ${rollStr})
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm md:text-base font-bold text-slate-900">
+              <div class="bg-white p-3 rounded-xl border border-emerald-200">• Two-Winding Rating (<strong>S<sub>2W</sub></strong>) = <strong>10 kVA</strong></div>
+              <div class="bg-white p-3 rounded-xl border border-emerald-200">• Winding Voltages = <strong>240 V</strong> and <strong>120 V</strong></div>
+              <div class="bg-white p-3 rounded-xl border border-emerald-200 md:col-span-2">
+                • When connected in <strong>Additive Polarity</strong> for maximum output: <br/>
+                Low Voltage Side (V<sub>L</sub>) = <strong>240 V</strong>, High Voltage Side (V<sub>H</sub>) = 240 + 120 = <strong>360 V</strong>
+              </div>
+            </div>
+          </div>
+
+          <!-- Part (i) kVA Rating -->
+          <div class="bg-white border-3 border-emerald-500 p-5 md:p-6 rounded-2xl shadow-md">
+            <div class="inline-block bg-emerald-800 text-white text-sm md:text-base px-4 py-1.5 rounded-lg font-black mb-3">
+              PART (i): kVA RATING AS AN AUTO-TRANSFORMER
+            </div>
+            <div class="bg-emerald-50 p-4 rounded-xl border border-emerald-300 font-mono-code text-sm md:text-base space-y-2 text-slate-900 font-bold">
+              <div><strong>1. Auto-Transformer Voltage Ratio (K):</strong></div>
+              <div class="pl-4">K = V<sub>L</sub> / V<sub>H</sub> = 240 / 360 = <strong>2 / 3 = 0.6667</strong></div>
+              
+              <div class="pt-2"><strong>2. kVA Rating Formula:</strong></div>
+              <div class="pl-4">kVA<sub>auto</sub> = kVA<sub>2-winding</sub> / (1 - K)</div>
+              <div class="pl-4">kVA<sub>auto</sub> = 10 / (1 - 2/3) = 10 / (1/3) = 10 &times; 3</div>
+              <div class="bg-white p-3 rounded-lg border-2 border-emerald-600 text-emerald-950 font-black text-lg md:text-2xl mt-2">
+                &rArr; kVA Rating as Auto-Transformer = <span class="underline text-emerald-800">${kva_auto.toFixed(0)} kVA</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Part (ii) Percentage Saving in Copper -->
+          <div class="bg-white border-3 border-emerald-500 p-5 md:p-6 rounded-2xl shadow-md">
+            <div class="inline-block bg-emerald-800 text-white text-sm md:text-base px-4 py-1.5 rounded-lg font-black mb-3">
+              PART (ii): PERCENTAGE SAVING IN COPPER
+            </div>
+            <div class="bg-emerald-50 p-4 rounded-xl border border-emerald-300 font-mono-code text-sm md:text-base space-y-2 text-slate-900 font-bold">
+              <div>Weight of Copper in Auto-Transformer = (1 - K) &times; Weight of Copper in 2-Winding Transformer</div>
+              <div class="pt-1"><strong>Percentage Saving in Copper = K &times; 100%</strong></div>
+              <div class="pl-4">% Saving = (2 / 3) &times; 100% = 0.6667 &times; 100%</div>
+              <div class="bg-white p-3 rounded-lg border-2 border-emerald-600 text-emerald-950 font-black text-lg md:text-2xl mt-2">
+                &rArr; Percentage Saving in Copper = <span class="underline text-emerald-800">${cu_saving.toFixed(2)} %</span>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+      else if (currentQ === 5) {
+        // ASSIGNMENT 3 - QUESTION 5
+        qStmt.innerHTML = `
+          <strong>5.</strong> A transformer takes a current of 
+          <span class="text-white font-mono-code font-black underline bg-emerald-950 px-2 py-0.5 rounded">0.${rollStr} A</span> 
+          and absorbs <strong>64 Watts</strong> when primary winding is connected to its nominal supply voltage of <strong>200 V, 50 Hz</strong>, the secondary winding being open-circuited. Find the <strong>magnetizing</strong> and <strong>iron loss</strong> currents.
+        `;
+
+        const I0 = parseFloat("0." + rollStr);
+        const W0 = 64;
+        const V1 = 200;
+
+        // Iron loss (working) current Iw = W0 / V1
+        const Iw = W0 / V1; // 64 / 200 = 0.32 A
+        
+        // Check if I0 >= Iw for real Im, otherwise note formula gracefully
+        let Im = 0;
+        let isReal = true;
+        if (I0 >= Iw) {
+          Im = Math.sqrt((I0 * I0) - (Iw * Iw));
+        } else {
+          isReal = false;
+          Im = 0;
+        }
+
+        container.innerHTML = `
+          <!-- Step 1: Given Data -->
+          <div class="bg-emerald-50 border-2 border-emerald-400 p-5 rounded-2xl shadow-sm">
+            <h3 class="text-base md:text-lg font-black text-emerald-950 uppercase tracking-wide mb-3 flex items-center gap-2">
+              <i class="ph ph-list-numbers text-emerald-700 text-xl font-black"></i>
+              STEP 1: GIVEN DATA (Open Circuit Test • ${currentStudentName} • Roll: ${rollStr})
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm md:text-base font-bold text-slate-900">
+              <div class="bg-white p-3 rounded-xl border border-emerald-200">• Primary Supply Voltage (<strong>V<sub>1</sub></strong>) = <strong>200 V, 50 Hz</strong></div>
+              <div class="bg-white p-3 rounded-xl border border-emerald-200">• No-load Power Absorbed (<strong>W<sub>0</sub></strong>) = <strong>64 Watts</strong></div>
+              <div class="bg-white p-3 rounded-xl border border-emerald-200 md:col-span-2">• No-load Primary Current (<strong>I<sub>0</sub></strong>) = 0.${rollStr} A = <strong class="text-emerald-800 font-mono-code">${I0.toFixed(4)} Amperes</strong></div>
+            </div>
+          </div>
+
+          <!-- Step 2: Iron Loss Current -->
+          <div class="bg-white border-3 border-emerald-500 p-5 md:p-6 rounded-2xl shadow-md">
+            <div class="inline-block bg-emerald-800 text-white text-sm md:text-base px-4 py-1.5 rounded-lg font-black mb-3">
+              STEP 2: IRON LOSS (WORKING) CURRENT (I<sub>w</sub>)
+            </div>
+            <p class="text-sm font-bold text-slate-700 mb-2">
+              The active / working component of no-load current supplies the iron (core) losses: <strong>W<sub>0</sub> = V<sub>1</sub> &middot; I<sub>w</sub></strong>.
+            </p>
+            <div class="bg-emerald-50 p-4 rounded-xl border border-emerald-300 font-mono-code text-sm md:text-base space-y-2 text-slate-900 font-bold">
+              <div>I<sub>w</sub> = W<sub>0</sub> / V<sub>1</sub></div>
+              <div class="pl-4">I<sub>w</sub> = 64 / 200</div>
+              <div class="bg-white p-3 rounded-lg border-2 border-emerald-600 text-emerald-950 font-black text-base md:text-xl mt-2">
+                &rArr; Iron Loss Current (I<sub>w</sub>) = <span class="underline text-emerald-800">${Iw.toFixed(3)} Amperes</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 3: Magnetizing Current -->
+          <div class="bg-white border-3 border-emerald-500 p-5 md:p-6 rounded-2xl shadow-md">
+            <div class="inline-block bg-emerald-800 text-white text-sm md:text-base px-4 py-1.5 rounded-lg font-black mb-3">
+              STEP 3: MAGNETIZING CURRENT (I<sub>m</sub>)
+            </div>
+            <div class="bg-emerald-50 p-4 rounded-xl border border-emerald-300 font-mono-code text-sm md:text-base space-y-2 text-slate-900 font-bold">
+              <div>From phasor relation: <strong>I<sub>0</sub><sup>2</sup> = I<sub>w</sub><sup>2</sup> + I<sub>m</sub><sup>2</sup></strong></div>
+              <div class="pl-4">I<sub>m</sub> = &radic;(I<sub>0</sub><sup>2</sup> - I<sub>w</sub><sup>2</sup>)</div>
+              <div class="pl-4">I<sub>m</sub> = &radic;[(${I0.toFixed(4)})<sup>2</sup> - (${Iw.toFixed(3)})<sup>2</sup>]</div>
+              <div class="pl-4">I<sub>m</sub> = &radic;[${(I0 * I0).toFixed(6)} - ${(Iw * Iw).toFixed(6)}]</div>
+              ${isReal ? `
+                <div class="pl-4">I<sub>m</sub> = &radic;${((I0 * I0) - (Iw * Iw)).toFixed(6)}</div>
+                <div class="bg-white p-3 rounded-lg border-2 border-emerald-600 text-emerald-950 font-black text-base md:text-xl mt-2">
+                  &rArr; Magnetizing Current (I<sub>m</sub>) = <span class="underline text-emerald-800">${Im.toFixed(4)} Amperes</span>
+                </div>
+              ` : `
+                <div class="bg-amber-50 p-3 rounded-lg border-2 border-amber-500 text-amber-950 font-bold text-sm mt-2">
+                  Note: For roll digits ${rollStr}, I<sub>0</sub> = ${I0.toFixed(3)} A is less than I<sub>w</sub> = 0.32 A (cos &phi;<sub>0</sub> = W<sub>0</sub>/(V<sub>1</sub>I<sub>0</sub>) &gt; 1). Numerically &radic;(I<sub>0</sub><sup>2</sup> - I<sub>w</sub><sup>2</sup>) requires I<sub>0</sub> &gt; 0.32 A (roll digits &gt; 320).
+                </div>
+              `}
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    // Function to copy solution steps to clipboard for the current active question
+    function copyCurrentSolution() {
+      const qNum = currentQ;
+      const roll = getRollX();
+      let text = `23EE302 - TRANSFORMERS ASSIGNMENT 3 (Section B)\nStudent: ${currentStudentName} (${currentFullRoll})\nRoll Digits: ${roll}\nQuestion ${qNum}\n\n`;
+
+      const qText = document.getElementById('questionStatement').innerText;
+      text += `QUESTION:\n${qText}\n\nSTEP-BY-STEP SOLUTION:\n`;
+
+      const stepsDiv = document.getElementById('solutionSteps');
+      text += stepsDiv.innerText;
+
+      const tempTextArea = document.createElement("textarea");
+      tempTextArea.value = text;
+      document.body.appendChild(tempTextArea);
+      tempTextArea.select();
+      try {
+        document.execCommand('copy');
+        showToast(`Assignment 3 - Question ${qNum} copied to clipboard!`);
+      } catch (err) {
+        showToast('Failed to copy. Please manually select text.');
+      }
+      document.body.removeChild(tempTextArea);
+    }
+
+    // Initialize application on page load
+    window.onload = function() {
+      handleUniversalSearchInput();
+      goToQuestion(1);
+    };
+  </script>
+</body>
+</html>
